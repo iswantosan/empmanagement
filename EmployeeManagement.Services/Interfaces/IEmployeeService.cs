@@ -1,18 +1,13 @@
-﻿using EmployeeManagement.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EmployeeManagement.Services.Models;
 
 namespace EmployeeManagement.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        IEnumerable<Employee> GetAllEmployees();
-        Employee GetEmployeeById(int id);
-        void AddEmployee(Employee employee);
-        void UpdateEmployee(Employee employee);
+        IEnumerable<EmployeeDTO> GetAllEmployees();
+        EmployeeDTO? GetEmployeeById(int id);
+        void AddEmployee(EmployeeDTO employee);
+        void UpdateEmployee(EmployeeDTO employee);
         void DeleteEmployee(int id);
     }
 }

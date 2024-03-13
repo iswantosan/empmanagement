@@ -1,11 +1,7 @@
 ﻿using EmployeeManagement.Repository.Interfaces;
 using EmployeeManagement.Repository.Models;
 using EmployeeManagement.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EmployeeManagement.Services.Models;
 
 namespace EmployeeManagement.Services.Services
 {
@@ -18,29 +14,57 @@ namespace EmployeeManagement.Services.Services
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
-            return _employeeRepository.GetAll();
+            var employees = _employeeRepository.GetAll();
+            return employees.Select(emp => new EmployeeDTO
+            {
+                Id = emp.Id,
+                FirstName = emp.FirstName,
+                LastName = emp.LastName,
+                MiddleName = emp.MiddleName,
+            });
         }
 
-        public Employee GetEmployeeById(int id)
+        public EmployeeDTO? GetEmployeeById(int id)
         {
-            return _employeeRepository.GetById(id);
+            var emp = _employeeRepository.GetById(id);
+
+            if (emp == null) return null;
+
+            return new EmployeeDTO()
+            {
+                Id = emp.Id,
+                FirstName = emp.FirstName,
+                LastName = emp.LastName,
+                MiddleName = emp.MiddleName,
+            };
         }
 
-        public void AddEmployee(Employee employee)
+        public void AddEmployee(EmployeeDTO employee)
         {
-            _employeeRepository.Add(employee);
+            _employeeRepository.Add(new Employee()
+            {
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                MiddleName = employee.MiddleName,
+            });
         }
 
-        public void UpdateEmployee(Employee employee)
+        public void UpdateEmployee(EmployeeDTO employee)
         {
             if (employee == null)
             {
                 throw new ArgumentNullException(nameof(employee));
             }
 
-            _employeeRepository.Update(employee);
+            _employeeRepository.Update(new Employee()
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                MiddleName = employee.MiddleName,
+            });
         }
 
         public void DeleteEmployee(int id)
