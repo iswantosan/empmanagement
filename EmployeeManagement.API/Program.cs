@@ -1,8 +1,6 @@
 using EmployeeManagement.Repository.Interfaces;
 using EmployeeManagement.Repository.Repositories.EmployeeManagement.Data;
 using EmployeeManagement.Repository.Repositories;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
 using EmployeeManagement.Services.Interfaces;
 using EmployeeManagement.Services.Services;
 using Microsoft.EntityFrameworkCore;
